@@ -29,7 +29,7 @@ export const getAllData = async (req, res) => {
     }
 }
 
-export const getData = async (req, res) => {
+export const getDataA = async (req, res) => {
     try {
         const userList = await User.findById(req.params.id)
         res.status(200).json(userList)

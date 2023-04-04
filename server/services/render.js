@@ -6,7 +6,7 @@ export const addData = async (req, res) => {
 }
 
 export const getData = async (req, res) => {
-    axios.get("http://localhost:8080/admin")
+    axios.get("http://localhost:8080/lists")
         .then((response) => {
             res.render('admin/userList', { users: response.data })
         })
@@ -16,7 +16,7 @@ export const getData = async (req, res) => {
 }
 
 export const getMember = async (req, res) => {
-    axios.get("http://localhost:8080/admin/" + req.query.id)
+    axios.get("http://localhost:8080/get/" + req.query.id)
         .then((userData) => {
             const dateFormat = userData.data.memberDetails.map(member => {
                 member.bDate = new Date(member.bDate).toLocaleDateString();

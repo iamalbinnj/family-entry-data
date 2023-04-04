@@ -10,7 +10,6 @@ import connectDB from './server/database/connection.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-import adminRoute from './server/routes/admin.js'
 import userRoute from './server/routes/user.js'
 
 const app = express()
@@ -35,8 +34,6 @@ app.use("/js",express.static(path.join(__dirname, 'assets/js')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //middlewares
-
-app.use("/admin", adminRoute)
 app.use("/", userRoute)
 
 app.listen(process.env.PORTS || 3000, () => {

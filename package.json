@@ -6,7 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "npm run clean && npm run build:js && npm run build:css",
+    "build:js": "echo 'Building JS files'",
+    "build:css": "echo 'Building CSS files'",
+    "clean": "echo 'Cleaning up'"
   },
   "keywords": [],
   "author": "",

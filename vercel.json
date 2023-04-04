@@ -10,12 +10,5 @@
       { "src": "/admin/(.*)", "dest": "/$1" },
       { "src": "/(.*)", "dest": "/$1" },
       { "src": "/(.*)", "dest": "/views/$1.hbs" }
-    ],
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/$1"
-      }
-    ],
-    "cleanUrls": true
+    ]
   }

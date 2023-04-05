@@ -141,9 +141,9 @@
         <hr class="border border-success border-2 opacity-50">
         <div class="row g-4" id="memberDetails-${memberCount}">
             <div class="col-md-4 p-3">
-                <label for="inputText4" class="form-label">Name</label>
+                <label for="inputText4" class="form-label">Name *</label>
                 <input type="text" class="form-control border-success" placeholder="name" name="memberDetails[${memberCount}][name]"
-                id="fName">
+                id="fName" required>
             </div>
             <div class="col-md-4 p-3">
                 <label for="inputText4" class="form-label">Relation</label>
@@ -152,17 +152,17 @@
             </div>
             <div class="row">
                 <div class="col-md-1 p-3">
-                    <label for="inputText4" class="form-label">Age</label>
+                    <label for="inputText4" class="form-label">Age *</label>
                     <input type="number" class="form-control border-success" placeholder="Age"
-                    name="memberDetails[${memberCount}][age]" id="age">
+                    name="memberDetails[${memberCount}][age]" id="age" required>
                 </div>
                 <div class="col-md-2 p-3">
                     <label for="inputText4" class="form-label">Baptism Date</label>
                     <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][bDate]" id="bDate">
                 </div>
                 <div class="col-md-2 p-3">
-                    <label for="inputText4" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][dob]" id="dob">
+                    <label for="inputText4" class="form-label">Date of Birth *</label>
+                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][dob]" id="dob" required>
                 </div>
             </div>
             <div class="row">

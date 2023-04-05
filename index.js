@@ -4,7 +4,6 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
-// import hbs from 'express-handlebars'
 
 import connectDB from './server/database/connection.js'
 

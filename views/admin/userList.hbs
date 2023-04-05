@@ -9,6 +9,20 @@
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
 
+<style>
+    table {
+        counter-reset: row-counter -1;
+    }
+
+    table tr {
+        counter-increment: row-counter;
+    }
+
+    table tr td:first-child::before {
+        content: counter(row-counter);
+    }
+</style>
+
 <body>
 
     <section>
@@ -33,7 +47,7 @@
                     <tbody>
                         {{#each users}}
                             <tr>
-                                <th scope="row">{{@index}}</th>
+                                <td scope="row"></td>
                                 <td>{{this.unit}}</td>
                                 <td>{{this.houseN}}</td>
                                 <td>{{this.phoneN}}</td>

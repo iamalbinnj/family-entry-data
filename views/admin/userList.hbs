@@ -32,32 +32,36 @@
         </header>
         <div class="row m-3">
             <div class="container table-responsive py-5">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Unit Name</th>
-                            <th scope="col">House Name</th>
-                            <th scope="col">Phone No</th>
-                            <th scope="col">Member Name</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each users}}
+                {{#if users.length}}
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
                             <tr>
-                                <td scope="row"></td>
-                                <td>{{this.unit}}</td>
-                                <td>{{this.houseN}}</td>
-                                <td>{{this.phoneN}}</td>
-                                <td>{{memberDetails.[0].name}}</td>
-                                <td><a href="/update?id={{this._id}}" class="btn btn-primary">Edit</a></td>
-                                <td><button type="button" data-id="{{this._id}}" class="btn btn-danger delete-btn"
-                                        id="deleteData">Delete</button></td>
+                                <th scope="col">#</th>
+                                <th scope="col">Unit Name</th>
+                                <th scope="col">House Name</th>
+                                <th scope="col">Phone No</th>
+                                <th scope="col">Member Name</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
-                        {{/each}}
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            {{#each users}}
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td>{{this.unit}}</td>
+                                    <td>{{this.houseN}}</td>
+                                    <td>{{this.phoneN}}</td>
+                                    <td>{{memberDetails.[0].name}}</td>
+                                    <td><a href="/update?id={{this._id}}" class="btn btn-primary">Edit</a></td>
+                                    <td><button type="button" data-id="{{this._id}}" class="btn btn-danger delete-btn"
+                                            id="deleteData">Delete</button></td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                {{else}}
+                    <p>No data to display.</p>
+                {{/if}}
                 </table>
             </div>
         </div>

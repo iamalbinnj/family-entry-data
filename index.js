@@ -35,6 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 //middlewares
 app.use("/", userRoute)
 
+app.use("*",(req,res,next)=>{
+    res.status(404).send('Sorry, the page you requested was not found');
+})
+
 app.listen(process.env.PORTS || 3000, () => {
     console.log('Server is Running');
 })

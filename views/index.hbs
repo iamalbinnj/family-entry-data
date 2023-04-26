@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Project</title>
+    <title>Family Data</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
@@ -50,11 +50,6 @@
                             <label for="inputText4" class="form-label">Relation</label>
                             <input type="text" class="form-control border-success" placeholder="Relation"
                                 name="memberDetails[0][relation]" id="relation">
-                        </div>
-                        <div class="col-md-1 p-3">
-                            <label for="inputText4" class="form-label">Age *</label>
-                            <input type="number" class="form-control border-success" placeholder="Age"
-                                name="memberDetails[0][age]" id="age" required>
                         </div>
                         <div class="row">
                             <div class="col-md-2 p-3">
@@ -156,11 +151,6 @@
                 id="relation">
             </div>
             <div class="row">
-                <div class="col-md-1 p-3">
-                    <label for="inputText4" class="form-label">Age *</label>
-                    <input type="number" class="form-control border-success" placeholder="Age"
-                    name="memberDetails[${memberCount}][age]" id="age" required>
-                </div>
                 <div class="col-md-2 p-3">
                     <label for="inputText4" class="form-label">Baptism Date</label>
                     <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][bDate]" id="bDate">

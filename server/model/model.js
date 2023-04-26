@@ -14,16 +14,16 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     memberDetails: [{
-        name:String,
-        relation:String,
-        age:Number,
-        bDate:Date,
-        dob:Date,
-        abroad:Boolean,
-        placeName:String,
-        married:Boolean,
-        dom:Date,
-        partnerName:String
+        name: String,
+        relation: String,
+        age: Number,
+        bDate: Date,
+        dob: Date,
+        abroad: Boolean,
+        placeName: String,
+        married: Boolean,
+        dom: Date,
+        partnerName: String
     }]
 })
 

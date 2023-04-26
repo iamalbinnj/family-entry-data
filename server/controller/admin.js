@@ -1,15 +1,23 @@
 import User from '../model/model.js'
+import { calculateAge } from '../../helpers/util.js';
 
 export const createData = async (req, res) => {
     try {
+        const { unit, houseN, phoneN, memberDetails } = req.body;
+
+        const newMemberDetails = memberDetails.map(({ dob, ...member }) => {
+            const age = calculateAge(dob);
+            return { ...member, dob, age };
+        });
+
         const data = new User({
-            unit: req.body.unit,
-            houseN: req.body.houseN,
-            phoneN: req.body.phoneN,
-            memberDetails: req.body.memberDetails
+            unit,
+            houseN,
+            phoneN,
+            memberDetails: newMemberDetails
         });
         const savedUser = await data.save()
-        res.send('<script>alert("Form submitted successfully!"); window.location.href="/";</script>');
+        res.status(200).send('<script>alert("Form submitted successfully!"); window.location.href="/";</script>');
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -18,7 +26,6 @@ export const createData = async (req, res) => {
 }
 
 export const getAllData = async (req, res) => {
-    // res.render('admin/userList')
     try {
         const usersList = await User.find()
         res.status(200).json(usersList)

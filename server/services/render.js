@@ -1,8 +1,13 @@
 import axios from "axios"
-// import User from "../model/model"
 
 export const addData = async (req, res) => {
-    res.render('index')
+    try {
+        res.render('index')
+    } catch (err) {
+        res.status(500).send({
+            message: err.message || "Some error occurred"
+        })
+    }
 }
 
 export const getData = async (req, res) => {
@@ -11,24 +16,27 @@ export const getData = async (req, res) => {
             res.render('admin/userList', { users: response.data })
         })
         .catch(err => {
-            res.send(err)
+            res.status(500).send({
+                message: err.message || "Some error occurred"
+            })
         })
 }
 
 export const getMember = async (req, res) => {
-    axios.get("http://localhost:8080/get/" + req.query.id)
-        .then((userData) => {
-            const dateFormat = userData.data.memberDetails.map(member => {
-                member.bDate = new Date(member.bDate).toLocaleDateString();
-                member.dob = new Date(member.dob).toLocaleDateString();
-                if (member.dom) {
-                    member.dom = new Date(member.dom).toLocaleDateString();
-                }
-                return member;
-            });
-            res.render("admin/editList", { user: userData.data, member: dateFormat })
-        })
-        .catch(err => {
-            res.send(err)
-        })
+    try {
+        const { data } = await axios.get(`http://localhost:8080/get/${req.query.id}`);
+
+        const dateFormat = data.memberDetails.map(({ bDate, dob, dom, ...member }) => ({
+            bDate: new Date(bDate).toLocaleDateString(),
+            dob: new Date(dob).toLocaleDateString(),
+            dom: dom ? new Date(dom).toLocaleDateString() : null,
+            ...member,
+        }));
+
+        res.render('admin/editList', { user: data, member: dateFormat });
+    } catch (err) {
+        res.status(500).send({
+            message: err.message || 'Some error occurred',
+        });
+    }
 }

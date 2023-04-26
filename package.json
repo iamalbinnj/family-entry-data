@@ -1,14 +1,13 @@
 {
-  "name": "form-project",
+  "name": "family-data",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "build": "node index.js",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Albin N J",

@@ -7,41 +7,38 @@ import { addData, getData, getMember } from "../services/render.js"
 //Add Data Page hbs
 router.get("/", addData)
 
-//Post Data admin
-router.post("/",createData)
-
-//-------------
-
-//Get All Data admin
-router.get("/lists",getAllData)
-
 //Get Data Page hbs
 router.get("/list", getData)
-
-//---------------
-
-
-//Admin
-router.get("/get/:id",getDataA)
-
 
 //get Member Page HBS
 router.get("/update", getMember)
 
+//Edit Member Data Member
+router.put("/update/:userid/:memberid",updataMember)
 
+//Delete Member Data Member
+router.delete("/:userid/:memberid",deleteMember)
+
+
+//Post Data admin
+router.post("/",createData)
+
+//Get All Data admin
+router.get("/lists",getAllData)
+
+//Admin
+router.get("/get/:id",getDataA)
 
 //Edit Data admin
 router.put("/update/:id",updateData)
 
-//Edit Member Data admin
+//Edit Member Data Member
 router.put("/update/:userid/:memberid",updataMember)
-
-
 
 //Delete Data admin
 router.delete("/:id",deleteData)
 
-//Delete Member Data admin
+//Delete Member Data Member
 router.delete("/:userid/:memberid",deleteMember)
 
 

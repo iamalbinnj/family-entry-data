@@ -53,14 +53,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-2 p-3">
-                                <label for="inputText4" class="form-label">Baptism Date</label>
-                                <input type="date" class="form-control border-success" name="memberDetails[0][bDate]"
-                                    id="bDate">
-                            </div>
-                            <div class="col-md-2 p-3">
                                 <label for="inputText4" class="form-label">Date of Birth *</label>
                                 <input type="date" class="form-control border-success" name="memberDetails[0][dob]"
                                     id="dob" required>
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Baptism Date</label>
+                                <input type="date" class="form-control border-success" name="memberDetails[0][bDate]"
+                                    id="bDate">
                             </div>
                         </div>
                         <div class="row">
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 p-3" id="placename0" style="visibility: hidden;">
-                                <label for="inputText4" class="form-label">Place Name *</label>
+                                <label for="inputText4" class="form-label">Place Name</label>
                                 <input type="text" class="form-control border-success" placeholder="Place Name"
                                     name="memberDetails[0][placeName]" id="placeName">
                             </div>
@@ -104,12 +104,12 @@
                             <div class="col-md-4 p-3" id="marryCheck0" style="visibility: hidden;">
                                 <div style="display: flex;">
                                     <div class="col-md-6 p-3">
-                                        <label for="inputText4" class="form-label">Date of Marriage *</label>
+                                        <label for="inputText4" class="form-label">Date of Marriage</label>
                                         <input type="date" class="form-control border-success"
                                             name="memberDetails[0][dom]" id="dom">
                                     </div>
                                     <div class="col-md-6 p-3">
-                                        <label for="inputEmail4" class="form-label">Partner Name *</label>
+                                        <label for="inputEmail4" class="form-label">Partner Name</label>
                                         <input type="text" class="form-control border-success"
                                             placeholder="Partner Name" name="memberDetails[0][partnerName]"
                                             id="partnerName">
@@ -152,12 +152,12 @@
             </div>
             <div class="row">
                 <div class="col-md-2 p-3">
-                    <label for="inputText4" class="form-label">Baptism Date</label>
-                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][bDate]" id="bDate">
-                </div>
-                <div class="col-md-2 p-3">
                     <label for="inputText4" class="form-label">Date of Birth *</label>
                     <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][dob]" id="dob" required>
+                </div>
+                <div class="col-md-2 p-3">
+                    <label for="inputText4" class="form-label">Baptism Date</label>
+                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][bDate]" id="bDate">
                 </div>
             </div>
             <div class="row">

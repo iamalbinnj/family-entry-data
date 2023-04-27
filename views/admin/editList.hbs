@@ -68,17 +68,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 p-3">
+                                    <label for="inputText" class="form-label">Date of Birth</label>
+                                    <label for="inputText" class="form-label">{{this.dob}}</label>
+                                    <input type="date" class="form-control border-success"
+                                        name="memberDetails[{{@index}}][dob]" id="dob" style="width: 150px;">
+                                </div>
+                                <div class="col-md-3 p-3">
                                     <label for="inputText" class="form-label">Baptism Date</label>
                                     <label for="inputText" class="form-label">{{this.bDate}}</label>
                                     <input type="date" class="form-control border-success"
                                         name="memberDetails[{{@index}}][bDate]" value="{{this.bDate}}" id="bDate"
                                         style="width: 150px;">
-                                </div>
-                                <div class="col-md-3 p-3">
-                                    <label for="inputText" class="form-label">Date of Birth</label>
-                                    <label for="inputText" class="form-label">{{this.dob}}</label>
-                                    <input type="date" class="form-control border-success"
-                                        name="memberDetails[{{@index}}][dob]" id="dob" style="width: 150px;">
                                 </div>
                             </div>
                             <div class="row">

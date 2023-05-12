@@ -21,7 +21,8 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-info me-md-2" type="button">Download PDF</button>
             </div>
-            <form action="/update/" method="POST" class="row g-4" id="updateUser">
+            <form action="/update/{{user._id}}" method="POST" class="row g-4" id="updateUser">
+                <input type="hidden" name="_method" value="PUT">
                 <div class="col-md-4">
                     <label for="inputState" class="form-label">Select Unit</label>
                     <select id="inputState selectUnit" name="unit" class="form-select border-success">
@@ -43,57 +44,55 @@
                         value="{{user.phoneN}}" name="phoneN" id="phoneNo">
                 </div>
                 <div class="col-md-4 m-3">
-                    <button type="submit" class="btn btn-primary update-data" data-id="{{user._id}}">Update</button>
+                    <button type="submit" class="btn btn-primary update-data">Update</button>
                 </div>
             </form>
             <span class="border border-black mx-auto p-2" id="memberDetail">
-                {{#each member}}
-                    <form action="/update/{{user._id}}" method="POST" class="row g-4" id="updateMember">
+                {{#each user.memberDetails}}
+                    <form action="/updatemember/{{../user._id}}/{{this._id}}" method="POST" class="row g-4"
+                        id="updateMember">
+                        <input type="hidden" name="_method" value="PUT">
                         <div class="row g-4" id="memberDetails-{{@index}}">
                             <div class="col-md-4 p-3">
                                 <label for="inputText" class="form-label">Name</label>
                                 <input type="text" class="form-control border-success" placeholder="Name"
-                                    value="{{this.name}}" name="memberDetails[{{@index}}][name]" id="name">
+                                    value="{{this.name}}" name="name" id="name">
                             </div>
                             <div class="col-md-4 p-3">
                                 <label for="inputText" class="form-label">Relation</label>
                                 <input type="text" class="form-control border-success" placeholder="Relation"
-                                    value="{{this.relation}}" name="memberDetails[{{@index}}][relation]" id="relation">
+                                    value="{{this.relation}}" name="relation" id="relation">
                             </div>
                             <div class="col-md-1 p-3">
                                 <label for="inputText" class="form-label">Age</label>
                                 <input type="number" class="form-control border-success" placeholder="Age"
-                                    value="{{this.age}}" name="memberDetails[{{@index}}][age]" id="age"
-                                    style="width: 70px;">
+                                    value="{{this.age}}" name="age" id="age" style="width: 70px;">
                             </div>
                             <div class="row">
                                 <div class="col-md-3 p-3">
                                     <label for="inputText" class="form-label">Date of Birth</label>
                                     <label for="inputText" class="form-label">{{this.dob}}</label>
-                                    <input type="date" class="form-control border-success"
-                                        name="memberDetails[{{@index}}][dob]" id="dob" style="width: 150px;">
+                                    <input type="date" class="form-control border-success" name="dob" id="dob"
+                                        style="width: 150px;">
                                 </div>
                                 <div class="col-md-3 p-3">
                                     <label for="inputText" class="form-label">Baptism Date</label>
                                     <label for="inputText" class="form-label">{{this.bDate}}</label>
-                                    <input type="date" class="form-control border-success"
-                                        name="memberDetails[{{@index}}][bDate]" value="{{this.bDate}}" id="bDate"
-                                        style="width: 150px;">
+                                    <input type="date" class="form-control border-success" name="bDate"
+                                        value="{{this.bDate}}" id="bDate" style="width: 150px;">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2 p-3">
                                     <label for="inputText" class="form-label">Abroad or Not</label>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input border-success" type="radio"
-                                            name="memberDetails[{{@index}}][abroad]" id="abroad" value="yes" {{#if
-                                            abroad}}checked{{/if}}>
+                                        <input class="form-check-input border-success" type="radio" name="abroad"
+                                            id="abroad" value="yes" {{#if abroad}}checked{{/if}}>
                                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input border-success" type="radio"
-                                            name="memberDetails[{{@index}}][abroad]" id="abroad" value="no" {{#unless
-                                            abroad}}checked{{/unless}}>
+                                        <input class="form-check-input border-success" type="radio" name="abroad"
+                                            id="abroad" value="no" {{#unless abroad}}checked{{/unless}}>
                                         <label class="form-check-label" for="inlineRadio2">No</label>
                                     </div>
                                 </div>
@@ -101,45 +100,40 @@
                                     {{/unless}}>
                                     <label for="inputText" class="form-label">Place Name</label>
                                     <input type="text" class="form-control border-success" placeholder="Place Name"
-                                        name="memberDetails[{{@index}}][placeName]" id="placeName"
-                                        value="{{this.placeName}}">
+                                        name="placeName" id="placeName" value="{{this.placeName}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2 p-3">
                                     <label for="inputText" class="form-label">Married or Not</label>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input border-success" type="radio"
-                                            name="memberDetails[{{@index}}][married]" id="marryyes" value="yes" {{#if
-                                            married}}checked{{/if}}>
+                                        <input class="form-check-input border-success" type="radio" name="married"
+                                            id="marryyes" value="yes" {{#if married}}checked{{/if}}>
                                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input border-success" type="radio"
-                                            name="memberDetails[{{@index}}][married]" id="marryno" value="no" {{#unless
-                                            married}}checked{{/unless}}>
+                                        <input class="form-check-input border-success" type="radio" name="married"
+                                            id="marryno" value="no" {{#unless married}}checked{{/unless}}>
                                         <label class="form-check-label" for="inlineRadio2">No</label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 p-3" {{#unless married}}style="display:none"{{/unless}}>
+                                <div class="col-md-3 p-3" {{#unless married}}style="display:none" {{/unless}}>
                                     <label for="inputText" class="form-label">Date of Marrage</label>
                                     <label for="inputText" class="form-label">{{this.dom}}</label>
-                                    <input type="date" class="form-control border-success"
-                                        name="memberDetails[{{@index}}][dom]" id="dom" style="width: 150px;">
+                                    <input type="date" class="form-control border-success" name="dom" id="dom"
+                                        style="width: 150px;">
                                 </div>
-                                <div class="col-md-4 p-3" {{#unless married}}style="display:none"{{/unless}}>
+                                <div class="col-md-4 p-3" {{#unless married}}style="display:none" {{/unless}}>
                                     <label for="inputText" class="form-label">Partner Name</label>
                                     <input type="text" class="form-control border-success" placeholder="Partner Name"
-                                        name="memberDetails[{{@index}}][partnerName]" id="partnerName"
-                                        value="{{this.partnerName}}">
+                                        name="partnerName" id="partnerName" value="{{this.partnerName}}">
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary mt-3 m-3 update-mem" id="update-member"
-                            data-id="{{this._id}}" style="width: 50%;" disabled>Update
-                            Member</button>
-                        <button type="button" class="btn btn-danger mt-3 m-3  delete-mem" id="deleteMember"
-                            data-id="{{this._id}}" style="width: 50%;">Delete Member</button>
+                        <input type="submit" value="Update Member" class="btn btn-primary mt-3 m-3 update-mem"
+                            id="update-member" style="width: 50%;">
+                        <button class="btn btn-danger mt-3 m-3 delete-member" data-id="{{../user._id}}"
+                            data-memberid="{{this._id}}" style="width: 50%;">Delete Member</button>
                         <hr class="border border-success border-2 opacity-50">
                     </form>
                 {{/each}}
@@ -150,79 +144,50 @@
             </div>
         </div>
         <script>
-            const userId = `{{user._id}}`;
-            const deleteMember = document.querySelectorAll('.delete-mem');
-            const deleteData = document.querySelectorAll('.delete-data');
-            const updateData = document.querySelector('#updateUser');
-            const updateMember = document.querySelectorAll('#update-member')
-            const updateMemberForm = document.querySelector('#updateMember');
-
             //Delete Member
-            deleteMember.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.getAttribute('data-id');
-                    if (confirm("Are you sure you want to delete this Member?") == true) {
-                        axios.delete(`/${userId}/${id}`)
-                            .then(res => {
-                                window.location.href = window.location.href;
+            document.querySelectorAll('.delete-member').forEach(button => {
+                button.addEventListener('click', event => {
+                    const memberId = event.target.getAttribute('data-memberid');
+                    const userId = event.target.getAttribute('data-id');
+                    const message = `Are you sure you want to delete member?`;
+
+                    if (confirm(message)) {
+                        fetch(`/${userId}/${memberId}`, {
+                            method: 'DELETE'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    location.reload();
+                                } else {
+                                    throw new Error('Failed to delete member');
+                                }
                             })
-                            .catch(err => alert("Error"));
+                            .catch(error => alert(error.message));
                     }
                 });
-            })
+            });
 
             // Delete Data
-            deleteData.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.getAttribute('data-id');
-                    if (confirm("Are you sure you want to delete this Data?") == true) {
-                        axios.delete(`/${id}`)
-                            .then(res => {
-                                window.location.href = "/list";
+            document.querySelectorAll('.delete-data').forEach(button => {
+                button.addEventListener('click', event => {
+                    const userId = event.target.getAttribute('data-id');
+                    const message = `Are you sure you want to delete family?`;
+
+                    if (confirm(message)) {
+                        fetch(`/${userId}`, {
+                            method: 'DELETE'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    window.location.href = "/list";
+                                } else {
+                                    throw new Error('Failed to delete member');
+                                }
                             })
-                            .catch(err => alert("Error"));
+                            .catch(error => alert(error.message));
                     }
                 });
-            })
-
-            //Update Data
-            updateData.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                const userId = updateData.querySelector('.update-data').dataset.id;
-
-                const formData = new FormData(updateData);
-                const userData = {
-                    unit: formData.get('unit'),
-                    houseN: formData.get('houseN'),
-                    phoneN: formData.get('phoneN')
-                };
-
-                axios.put(`/update/${userId}`, userData)
-                    .then(function (response) {
-                        alert("Data has been updated")
-                        window.location.href = window.location.href;
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                    });
-            })
-
-            //Update Member
-            updateMember.forEach(btn => {
-                btn.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const id = btn.getAttribute('data-id');
-                    console.log(id)
-                    const formData = new FormData(updateMemberForm);
-                    const userData = {
-                        age: formData.get('memberDetails[{{@index}}][age]'),
-                        name: formData.get('memberDetails[{{@index}}][name]'),
-                    };
-                    console.log(userData)
-
-                });
-            })
+            });
         </script>
     </section>
 

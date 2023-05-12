@@ -55,12 +55,41 @@
                             <div class="col-md-2 p-3">
                                 <label for="inputText4" class="form-label">Date of Birth *</label>
                                 <input type="date" class="form-control border-success" name="memberDetails[0][dob]"
-                                    id="dob" required>
+                                    id="dob">
                             </div>
                             <div class="col-md-2 p-3">
                                 <label for="inputText4" class="form-label">Baptism Date</label>
                                 <input type="date" class="form-control border-success" name="memberDetails[0][bDate]"
                                     id="bDate">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Date</label>
+                                <input type="number" class="form-control border-success" name="memberDetails[0][date]"
+                                    id="date">
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Month</label>
+                                <select id="inputState selectMonth" name="memberDetails[0][month]" class="form-select border-success">
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Year</label>
+                                <input type="number" class="form-control border-success" name="memberDetails[0][year]"
+                                    id="year">
                             </div>
                         </div>
                         <div class="row">
@@ -153,11 +182,40 @@
             <div class="row">
                 <div class="col-md-2 p-3">
                     <label for="inputText4" class="form-label">Date of Birth *</label>
-                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][dob]" id="dob" required>
+                    <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][dob]" id="dob">
                 </div>
                 <div class="col-md-2 p-3">
                     <label for="inputText4" class="form-label">Baptism Date</label>
                     <input type="date" class="form-control border-success" name="memberDetails[${memberCount}][bDate]" id="bDate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 p-3">
+                    <label for="inputText4" class="form-label">Date</label>
+                        <input type="number" class="form-control border-success" name="memberDetails[${memberCount}][date]"
+                            id="date">
+                </div>
+                <div class="col-md-2 p-3">
+                    <label for="inputText4" class="form-label">Month</label>
+                        <select id="inputState selectMonth" name="memberDetails[${memberCount}][month]" class="form-select border-success">
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                </div>
+                <div class="col-md-2 p-3">
+                    <label for="inputText4" class="form-label">Year</label>
+                        <input type="number" class="form-control border-success" name="memberDetails[${memberCount}][year]"
+                            id="year">
                 </div>
             </div>
             <div class="row">

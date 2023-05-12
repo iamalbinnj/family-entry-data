@@ -9,7 +9,7 @@ import connectDB from './server/database/connection.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-import userRoute from './server/routes/user.js'
+import adminRoute from './server/routes/admin.js'
 
 const app = express()
 dotenv.config()
@@ -33,7 +33,7 @@ app.use("/js",express.static(path.join(__dirname, 'assets/js')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //middlewares
-app.use("/", userRoute)
+app.use("/", adminRoute)
 
 app.use("*",(req,res,next)=>{
     res.status(404).send('Sorry, the page you requested was not found');

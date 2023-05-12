@@ -29,6 +29,9 @@
         <header class="row m-3">
             <h1>User List</h1>
             <p><a href="/">Go to Home Page</a></p>
+            <div class="search-list">
+
+            </div>
         </header>
         <div class="row m-3">
             <div class="container table-responsive py-5">
@@ -53,8 +56,8 @@
                                     <td>{{this.houseN}}</td>
                                     <td>{{this.phoneN}}</td>
                                     <td>{{memberDetails.[0].name}}</td>
-                                    <td><a href="/update?id={{this._id}}" class="btn btn-primary">Edit</a></td>
-                                    <td><button type="button" data-id="{{this._id}}" class="btn btn-danger delete-btn"
+                                    <td><a href="/update/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                                    <td><button type="button" data-id="{{this._id}}" class="btn btn-danger delete-data"
                                             id="deleteData">Delete</button></td>
                                 </tr>
                             {{/each}}
@@ -66,20 +69,26 @@
             </div>
         </div>
         <script>
-            const deleteBtns = document.querySelectorAll('.delete-btn');
-            deleteBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.getAttribute('data-id');
-                    if (confirm("Are you sure you want to delete this data?") == true) {
-                        // send delete request to server with the id of the data to be deleted
-                        axios.delete(`/${id}`)
-                            .then(res => {
-                                window.location.href = window.location.href;
+            document.querySelectorAll('.delete-data').forEach(button => {
+                button.addEventListener('click', event => {
+                    const userId = event.target.getAttribute('data-id');
+                    const message = `Are you sure you want to delete?`;
+
+                    if (confirm(message)) {
+                        fetch(`/${userId}`, {
+                            method: 'DELETE'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    window.location.href = window.location.href;
+                                } else {
+                                    throw new Error('Failed to delete member');
+                                }
                             })
-                            .catch(err => alert("Error"));
+                            .catch(error => alert(error.message));
                     }
                 });
-            })
+            });
         </script>
     </section>
 

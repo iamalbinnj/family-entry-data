@@ -19,14 +19,21 @@ const UserSchema = new mongoose.Schema({
         age: Number,
         bDate: Date,
         dob: Date,
-        date:Number,
-        month:Number,
-        year:Number,
+        birthdate:Number,
+        birthmonth:String,
+        birthyear:Number,
+        baptismdate:Number,
+        baptismmonth:Number,
+        baptismyear:Number,
         abroad: Boolean,
         placeName: String,
         married: Boolean,
         dom: Date,
-        partnerName: String
+        marriagedate:Number,
+        marriagemonth:Number,
+        marriageyear:Number,
+        partnerName: String,
+        anniversary:Number
     }]
 })
 

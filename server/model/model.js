@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         bDate: Date,
         dob: Date,
         birthdate:Number,
-        birthmonth:String,
+        birthmonth:Number,
         birthyear:Number,
         baptismdate:Number,
         baptismmonth:Number,

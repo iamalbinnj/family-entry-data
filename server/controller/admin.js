@@ -1,6 +1,5 @@
 import User from '../model/model.js'
-import { calculateAge, monthNumber } from '../../helpers/util.js';
-
+import { calculateAge, monthNumber, monthName } from '../../helpers/util.js';
 
 export const addData = async (req, res) => { //router.get("/", addData)
     try {
@@ -19,8 +18,8 @@ export const createData = async (req, res) => { //router.post("/", createData)
             birthmonth = monthNumber(birthmonth);
             baptismmonth = monthNumber(baptismmonth);
             marriagemonth = monthNumber(marriagemonth);
-            const age = calculateAge(new Date(birthyear, birthmonth, birthdate))
-            const anniversary = calculateAge(new Date(marriageyear, marriagemonth, marriagedate))
+            const age = calculateAge(new Date(birthyear, birthmonth, birthdate)) || ""
+            const anniversary = calculateAge(new Date(marriageyear, marriagemonth, marriagedate)) || ""
             return { ...member, birthdate, birthmonth, birthyear, baptismmonth, marriagedate, marriagemonth, marriageyear, age, anniversary };
         });
 
@@ -95,9 +94,18 @@ export const getAllData = async (req, res) => { //router.get("/list", getAllData
 
 export const getMember = async (req, res) => { //router.get("/view/:id", getMember)
     try {
-        const userList = await User.findById(req.params.id)
+        let userList = await User.findById(req.params.id)
+        const memberDetail = userList.memberDetails;
+        // console.log(memberDetail);
+        let newMemberDetails = memberDetail.map(({ name, relation, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
+            const newBirthmonth = monthName(birthmonth);
+            const newBaptismmonth = monthName(baptismmonth);
+            const newMarriagemonth = monthName(marriagemonth);
+            return { name: name, relation: relation, age: age, birthdate: birthdate, birthmonth: newBirthmonth, birthyear: birthyear, baptismdate: baptismdate, baptismmonth: newBaptismmonth, baptismyear: baptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: marriagedate, marriagemonth: newMarriagemonth, marriageyear: marriageyear, partnerName: partnerName, anniversary: anniversary, _id: _id };
+        });
+        // console.log(newMemberDetails); // Verify the updated memberDetails
         // res.status(200).json(userList)
-        res.render('admin/viewData', { user: userList })
+        res.render('admin/viewData', { user: userList, member: newMemberDetails })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -117,12 +125,17 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
         const member = editList.memberDetails.find(
             (member) => member._id.toString() === req.params.memberid
         );
-        if (!member) {
-            return res.status(404).json({ message: "Member not found" });
+        let birthmonth=member.birthmonth
+        let baptismmonth=member.baptismmonth
+        let marriagemonth=member.marriagemonth
+        if (member) {
+            birthmonth = monthName(birthmonth);
+            baptismmonth = monthName(baptismmonth);
+            marriagemonth = monthName(marriagemonth);
         }
-        // console.log(editList);
+        // console.log(member);
         // res.status(200).json(member);
-        res.render('admin/editData', {id:req.params.id,member:member})
+        res.render('admin/editData', { id: req.params.id, member: member,birthmonth:birthmonth,marriagemonth:marriagemonth,baptismmonth:baptismmonth })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -146,14 +159,40 @@ export const updateData = async (req, res) => {  //router.post("/update/:id", up
         })
     }
 }
+
 export const updateMember = async (req, res) => {  //router.post("/updatemember/:id/:memberid", updateMember)
     try {
+        const birthmonth = monthNumber(req.body.birthmonth);
+        const baptismmonth = monthNumber(req.body.baptismmonth);
+        const marriagemonth = monthNumber(req.body.marriagemonth);
+        const age = calculateAge(new Date(req.body.birthyear, birthmonth, req.body.birthdate))
+        const anniversary = calculateAge(new Date(req.body.marriageyear, marriagemonth, req.body.marriagedate))
+
         const updatedMember = await User.findOneAndUpdate(
             { _id: req.params.id, "memberDetails._id": req.params.memberid },
-            { $set: { "memberDetails.$.name": req.body.name } },
+            {
+                $set: {
+                    "memberDetails.$.name": req.body.name,
+                    "memberDetails.$.relation": req.body.relation,
+                    "memberDetails.$.birthdate": req.body.birthdate,
+                    "memberDetails.$.birthmonth": birthmonth,
+                    "memberDetails.$.birthyear": req.body.birthyear,
+                    "memberDetails.$.age": age || "",
+                    "memberDetails.$.baptismdate": req.body.baptismdate,
+                    "memberDetails.$.baptismmonth": baptismmonth,
+                    "memberDetails.$.baptismyear": req.body.baptismyear,
+                    "memberDetails.$.abroad": req.body.abroad,
+                    "memberDetails.$.placeName": req.body.placeName,
+                    "memberDetails.$.married": req.body.married,
+                    "memberDetails.$.marriagedate": req.body.marriagedate,
+                    "memberDetails.$.marriagemonth": marriagemonth,
+                    "memberDetails.$.marriageyear": req.body.marriageyear,
+                    "memberDetails.$.partnerName": req.body.partnerName,
+                    "memberDetails.$.anniversary": anniversary || "",
+                }
+            },
             { new: true }
         );
-        console.log(updatedMember);
         // res.status(200).json(updatedMember);
         res.status(200).send(`<script>alert("Form submitted successfully!"); window.location.href="/view/${req.params.id}";</script>`);
     } catch (err) {
@@ -162,7 +201,6 @@ export const updateMember = async (req, res) => {  //router.post("/updatemember/
         });
     }
 };
-
 
 export const deleteData = async (req, res) => {  //router.delete("/:id", deleteData)
     try {

@@ -61,9 +61,9 @@ export const getMember = async (req, res) => { //router.get("/view/:id", getMemb
             const updatedBaptismmonth = baptismmonth !== null && baptismmonth >= 1 && baptismmonth <= 12 ? baptismmonth : 0;
             const updatedMarriagemonth = marriagemonth !== null && marriagemonth >= 1 && marriagemonth <= 12 ? marriagemonth : 0;
 
-            const newBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : '0';
-            const newBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : '0';
-            const newMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : '0';
+            const newBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : 0;
+            const newBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : 0;
+            const newMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : 0;
             return { name, relation, age: updatedage, birthdate: birthdate, birthmonth: newBirthmonth, birthyear: birthyear, baptismdate: baptismdate, baptismmonth: newBaptismmonth, baptismyear: baptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: marriagedate, marriagemonth: newMarriagemonth, marriageyear: marriageyear, partnerName: partnerName, anniversary: updatedanniversary, _id: _id };
         });
         // console.log(newMemberDetails); // Verify the updated memberDetails
@@ -86,22 +86,30 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
         if (!editList) {
             return res.status(404).json({ message: "Member not found" });
         }
-        let member = editList.memberDetails.find(
-            (member) => member._id.toString() === req.params.memberid
-        );
-        let updatedBirthmonth=member.birthmonth
-        let updatedBaptismmonth=member.baptismmonth
-        let updatedMarriagemonth=member.marriagemonth
-        if (member) {
-            member.age = member.age !== null && member.age >= 1 && member.age <= 110 ? member.age : 0;
-            member.anniversary= member.anniversary !== null && member.anniversary >= 1 && member.anniversary <= 110 ? member.anniversary : 0;
-            updatedBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : '0';
-            updatedBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : '0';
-            updatedMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : '0';
-        }
-        console.log(updatedBirthmonth);
+        let member = editList.memberDetails
+        let newMemberDetails = member.map(({ name, relation, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
+            const updatedage = age !== null && age >= 1 && age <= 110 ? age : 0;
+            const updatedanniversary = anniversary !== null && anniversary >= 1 && anniversary <= 100 ? anniversary : 0;
+            const updatedBirthdate = birthdate !== null && birthdate >= 1 && birthdate <= 31 ? birthdate : 0;
+            const updatedBirthmonth = birthmonth !== null && birthmonth >= 1 && birthmonth <= 12 ? birthmonth : 0;
+            const updatedBirthyear = birthyear !== null ? birthyear : 0;
+            const updatedBaptismdate = baptismdate !== null && baptismdate >= 1 && baptismdate <= 31 ? baptismdate : 0;
+            const updatedBaptismmonth = baptismmonth !== null && baptismmonth >= 1 && baptismmonth <= 12 ? baptismmonth : 0;
+            const updatedBaptismyear = baptismyear !== null ? baptismyear : 0;
+            const updatedMarriagedate = marriagedate !== null && marriagedate >= 1 && marriagedate <= 31 ? marriagedate : 0;
+            const updatedMarriagemonth = marriagemonth !== null && marriagemonth >= 1 && marriagemonth <= 12 ? marriagemonth : 0;
+            const updatedMarriageyear = marriageyear !== null ? marriageyear : 0;
+
+            const newBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : 0;
+            const newBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : 0;
+            const newMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : 0;
+            return { name, relation, age: updatedage, birthdate: updatedBirthdate, birthmonth: newBirthmonth, birthyear: updatedBirthyear, baptismdate: updatedBaptismdate, baptismmonth: newBaptismmonth, baptismyear: updatedBaptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: updatedMarriagedate, marriagemonth: newMarriagemonth, marriageyear: updatedMarriageyear, partnerName: partnerName, anniversary: updatedanniversary, _id: _id };
+        })
+
+        console.log(newMemberDetails);
+        // console.log(editList);
         // res.status(200).json(member);
-        res.render('admin/editData', { id: req.params.id, member: member, birthmonth: updatedBirthmonth, marriagemonth: updatedMarriagemonth, baptismmonth: updatedBaptismmonth })
+        res.render('admin/editData', { id: req.params.id, memberid: req.params.memberid, member: newMemberDetails })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -130,10 +138,21 @@ export const updateMember = async (req, res) => {  //router.post("/updatemember/
     try {
         const birthmonth = monthNumber(req.body.birthmonth);
         const baptismmonth = monthNumber(req.body.baptismmonth);
-        const marriagemonth = monthNumber(req.body.marriagemonth);
-        const age = calculateAge(new Date(req.body.birthyear, birthmonth, req.body.birthdate))
-        const anniversary = calculateAge(new Date(req.body.marriageyear, marriagemonth, req.body.marriagedate))
-
+        let age = 0;
+        let marriagemonth
+        let anniversary;
+        if (req.body.birthyear && birthmonth && req.body.birthdate) {
+            age = calculateAge(new Date(req.body.birthyear, birthmonth, req.body.birthdate));
+        }
+        if (req.body.married) {
+            marriagemonth = monthNumber(req.body.marriagemonth);
+            marriagemonth = Number.isNaN(marriagemonth) ? 0 : marriagemonth;
+            anniversary = calculateAge(new Date(req.body.marriageyear, marriagemonth, req.body.marriagedate));
+            anniversary = Number.isNaN(anniversary) ? 0 : anniversary;
+        } else {
+            anniversary = 0;
+            marriagemonth = 0
+        }
         const updatedMember = await User.findOneAndUpdate(
             { _id: req.params.id, "memberDetails._id": req.params.memberid },
             {
@@ -143,7 +162,7 @@ export const updateMember = async (req, res) => {  //router.post("/updatemember/
                     "memberDetails.$.birthdate": req.body.birthdate,
                     "memberDetails.$.birthmonth": birthmonth,
                     "memberDetails.$.birthyear": req.body.birthyear,
-                    "memberDetails.$.age": age || "",
+                    "memberDetails.$.age": age,
                     "memberDetails.$.baptismdate": req.body.baptismdate,
                     "memberDetails.$.baptismmonth": baptismmonth,
                     "memberDetails.$.baptismyear": req.body.baptismyear,
@@ -154,11 +173,12 @@ export const updateMember = async (req, res) => {  //router.post("/updatemember/
                     "memberDetails.$.marriagemonth": marriagemonth,
                     "memberDetails.$.marriageyear": req.body.marriageyear,
                     "memberDetails.$.partnerName": req.body.partnerName,
-                    "memberDetails.$.anniversary": anniversary || "",
+                    "memberDetails.$.anniversary": anniversary,
                 }
             },
             { new: true }
         );
+        // console.log(updatedMember);
         // res.status(200).json(updatedMember);
         res.status(200).send(`<script>alert("Form submitted successfully!"); window.location.href="/view/${req.params.id}";</script>`);
     } catch (err) {

@@ -54,7 +54,6 @@ export const getMember = async (req, res) => { //router.get("/view/:id", getMemb
     try {
         let userList = await User.findById(req.params.id)
         const memberDetail = userList.memberDetails;
-        // console.log(memberDetail);
         let newMemberDetails = memberDetail.map(({ name, relation, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
             const updatedage = age !== null && age >= 1 && age <= 110 ? age : 0;
             const updatedanniversary = anniversary !== null && anniversary >= 1 && anniversary <= 100 ? anniversary : 0;
@@ -87,20 +86,22 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
         if (!editList) {
             return res.status(404).json({ message: "Member not found" });
         }
-        const member = editList.memberDetails.find(
+        let member = editList.memberDetails.find(
             (member) => member._id.toString() === req.params.memberid
         );
-        let birthmonth = member.birthmonth
-        let baptismmonth = member.baptismmonth
-        let marriagemonth = member.marriagemonth
+        let updatedBirthmonth=member.birthmonth
+        let updatedBaptismmonth=member.baptismmonth
+        let updatedMarriagemonth=member.marriagemonth
         if (member) {
-            birthmonth = monthName(birthmonth);
-            baptismmonth = monthName(baptismmonth);
-            marriagemonth = monthName(marriagemonth);
+            member.age = member.age !== null && member.age >= 1 && member.age <= 110 ? member.age : 0;
+            member.anniversary= member.anniversary !== null && member.anniversary >= 1 && member.anniversary <= 110 ? member.anniversary : 0;
+            updatedBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : '0';
+            updatedBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : '0';
+            updatedMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : '0';
         }
-        // console.log(member);
+        console.log(updatedBirthmonth);
         // res.status(200).json(member);
-        res.render('admin/editData', { id: req.params.id, member: member, birthmonth: birthmonth, marriagemonth: marriagemonth, baptismmonth: baptismmonth })
+        res.render('admin/editData', { id: req.params.id, member: member, birthmonth: updatedBirthmonth, marriagemonth: updatedMarriagemonth, baptismmonth: updatedBaptismmonth })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"

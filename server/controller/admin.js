@@ -40,51 +40,9 @@ export const createData = async (req, res) => { //router.post("/", createData)
 
 export const getAllData = async (req, res) => { //router.get("/list", getAllData)
     try {
-        let startMonth = req.query.sbm
-        startMonth = monthNumber(startMonth)
-        if (Object.keys(req.query).length !== 0) {
-            const selectedList = await User.aggregate([
-                { $match: { memberDetails: { $elemMatch: { birthmonth: startMonth } } } },
-                {
-                    $project: {
-                        _id: 1,
-                        unit: 1,
-                        houseN: 1,
-                        phoneN: 1,
-                        memberDetails: {
-                            $filter: {
-                                input: '$memberDetails',
-                                as: 'member',
-                                cond: { $eq: ['$$member.birthmonth', startMonth] }
-                            }
-                        }
-                    }
-                }
-            ]);
-            let filteredList = []
-            selectedList.forEach((listItem) => {
-                const matchingMembers = listItem.memberDetails.filter((member) => {
-                    return member.birthmonth === startMonth
-                })
-                matchingMembers.forEach((member) => {
-                    const filteredItem = {
-                        _id: listItem._id,
-                        unit: listItem.unit,
-                        houseN: listItem.houseN,
-                        phoneN: listItem.phoneN,
-                        memberDetails: [member]
-                    }
-                    filteredList.push(filteredItem)
-                })
-            })
-            // res.status(200).json(filteredList)
-            res.render('admin/viewList', { users: filteredList })
-        } else {
-            const userList = await User.find()
-            // res.status(200).json(userList)
-            res.render('admin/viewList', { users: userList })
-        }
-
+        const userList = await User.find()
+        // res.status(200).json(userList)
+        res.render('admin/viewList', { users: userList })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -98,14 +56,21 @@ export const getMember = async (req, res) => { //router.get("/view/:id", getMemb
         const memberDetail = userList.memberDetails;
         // console.log(memberDetail);
         let newMemberDetails = memberDetail.map(({ name, relation, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
-            const newBirthmonth = monthName(birthmonth);
-            const newBaptismmonth = monthName(baptismmonth);
-            const newMarriagemonth = monthName(marriagemonth);
-            return { name: name, relation: relation, age: age, birthdate: birthdate, birthmonth: newBirthmonth, birthyear: birthyear, baptismdate: baptismdate, baptismmonth: newBaptismmonth, baptismyear: baptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: marriagedate, marriagemonth: newMarriagemonth, marriageyear: marriageyear, partnerName: partnerName, anniversary: anniversary, _id: _id };
+            const updatedage = age !== null && age >= 1 && age <= 110 ? age : 0;
+            const updatedanniversary = anniversary !== null && anniversary >= 1 && anniversary <= 100 ? anniversary : 0;
+            const updatedBirthmonth = birthmonth !== null && birthmonth >= 1 && birthmonth <= 12 ? birthmonth : 0;
+            const updatedBaptismmonth = baptismmonth !== null && baptismmonth >= 1 && baptismmonth <= 12 ? baptismmonth : 0;
+            const updatedMarriagemonth = marriagemonth !== null && marriagemonth >= 1 && marriagemonth <= 12 ? marriagemonth : 0;
+
+            const newBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : '0';
+            const newBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : '0';
+            const newMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : '0';
+            return { name, relation, age: updatedage, birthdate: birthdate, birthmonth: newBirthmonth, birthyear: birthyear, baptismdate: baptismdate, baptismmonth: newBaptismmonth, baptismyear: baptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: marriagedate, marriagemonth: newMarriagemonth, marriageyear: marriageyear, partnerName: partnerName, anniversary: updatedanniversary, _id: _id };
         });
         // console.log(newMemberDetails); // Verify the updated memberDetails
         // res.status(200).json(userList)
         res.render('admin/viewData', { user: userList, member: newMemberDetails })
+        // res.status(200).json(newMemberDetails)
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"
@@ -125,9 +90,9 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
         const member = editList.memberDetails.find(
             (member) => member._id.toString() === req.params.memberid
         );
-        let birthmonth=member.birthmonth
-        let baptismmonth=member.baptismmonth
-        let marriagemonth=member.marriagemonth
+        let birthmonth = member.birthmonth
+        let baptismmonth = member.baptismmonth
+        let marriagemonth = member.marriagemonth
         if (member) {
             birthmonth = monthName(birthmonth);
             baptismmonth = monthName(baptismmonth);
@@ -135,7 +100,7 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
         }
         // console.log(member);
         // res.status(200).json(member);
-        res.render('admin/editData', { id: req.params.id, member: member,birthmonth:birthmonth,marriagemonth:marriagemonth,baptismmonth:baptismmonth })
+        res.render('admin/editData', { id: req.params.id, member: member, birthmonth: birthmonth, marriagemonth: marriagemonth, baptismmonth: baptismmonth })
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"

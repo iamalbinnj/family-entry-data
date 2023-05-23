@@ -69,20 +69,20 @@
                                     style="width: 70px;">{{this.age}}</label>
                             </div>
                         </div>
-                            <div class="row">
-                                <div class="col-md-4 p-3">
-                                    <label for="inputText4" class="form-label">Date of Birth: </label>
-                                    <label class="form-label border-success" name="dateofbirth[{{@index}}]"
-                                        id="dateofbirth">{{this.birthdate}}/{{this.birthmonth}}/{{this.birthyear}}</label>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-4 p-3">
+                                <label for="inputText4" class="form-label">Date of Birth: </label>
+                                <label class="form-label border-success" name="dateofbirth[{{@index}}]"
+                                    id="dateofbirth">{{this.birthdate}}/{{this.birthmonth}}/{{this.birthyear}}</label>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4 p-3">
-                                    <label for="inputText4" class="form-label">Date of Baptism: </label>
-                                    <label class="form-label border-success" name="dateofbaptism[{{@index}}]"
-                                        id="dateofbaptism">{{this.baptismdate}}/{{this.baptismmonth}}/{{this.baptismyear}}</label>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 p-3">
+                                <label for="inputText4" class="form-label">Date of Baptism: </label>
+                                <label class="form-label border-success" name="dateofbaptism[{{@index}}]"
+                                    id="dateofbaptism">{{this.baptismdate}}/{{this.baptismmonth}}/{{this.baptismyear}}</label>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-4 p-3">
                                 <label for="inputText" class="form-label">Abroad or Not: </label>
@@ -109,11 +109,11 @@
                             </div>
                             <div class="col-md-4" {{#unless married}}style="display:none" {{/unless}}>
                                 <div style="display: flex;">
-                                        <div class="col-md-8 p-3">
-                                            <label for="inputText4" class="form-label">Marriage Date: </label>
-                                            <label class="form-label border-success" name="marriagedate[{{@index}}]"
-                                                id="marriagedate">{{this.marriagedate}}/{{this.marriagemonth}}/{{this.marriageyear}}</label>
-                                        </div>
+                                    <div class="col-md-8 p-3">
+                                        <label for="inputText4" class="form-label">Marriage Date: </label>
+                                        <label class="form-label border-success" name="marriagedate[{{@index}}]"
+                                            id="marriagedate">{{this.marriagedate}}/{{this.marriagemonth}}/{{this.marriageyear}}</label>
+                                    </div>
                                     <div class="col-md-5 p-3">
                                         <label for="inputTest4" class="form-label">Partner Name: </label>
                                         <label class="form-label border-success" name="partnerName[{{@index}}]"

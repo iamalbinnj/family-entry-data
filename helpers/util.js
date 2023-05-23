@@ -6,6 +6,7 @@ export const calculateAge = (birthDate) => {
 
 export const monthNumber = (month) => {
     const monthMap = {
+        'Not Selected':0,
         'January': 1,
         'February': 2,
         'March': 3,
@@ -26,6 +27,7 @@ export const monthNumber = (month) => {
 
 export const monthName = (month) => {
     const monthMap = {
+        'Not Selected':0,
         'January': 1,
         'February': 2,
         'March': 3,

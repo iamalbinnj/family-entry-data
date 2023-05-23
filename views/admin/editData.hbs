@@ -18,180 +18,186 @@
             <p><a href="/list">Go to List Page</a></p>
         </header>
         <span class="mx-auto p-2" id="memberDetail">
-            <form action="/updatemember/{{id}}/{{member._id}}" method="POST" class="row g-4" id="updateMember">
-                <input type="hidden" name="_method" value="PUT">
-                <div class="row g-4" id="memberDetails">
-                    <div class="col-md-4 p-3">
-                        <label for="inputText" class="form-label">Name</label>
-                        <input type="text" class="form-control border-success" placeholder="Name"
-                            value="{{member.name}}" name="name" id="name">
-                    </div>
-                    <div class="col-md-4 p-3">
-                        <label for="inputText" class="form-label">Relation</label>
-                        <input type="text" class="form-control border-success" placeholder="Relation"
-                            value="{{member.relation}}" name="relation" id="relation">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 p-3">
-                            <label for="inputText" class="form-label">Date of Birth</label>
-                            <label for="inputText" class="form-label">{{member.dob}}</label>
-                            <input type="date" class="form-control border-success" name="dob" id="dob"
-                                style="width: 150px;" disabled>
+            <form action="/updatemember/{{id}}/{{memberid}}" method="POST" class="row g-4" id="updateMember">
+                {{#each member}}
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="row g-4" id="memberDetails">
+                        <div class="col-md-4 p-3">
+                            <label for="inputText" class="form-label">Name</label>
+                            <input type="text" class="form-control border-success" placeholder="Name"
+                                value="{{this.name}}" name="name" id="name">
                         </div>
-                        <div class="col-md-3 p-3">
-                            <label for="inputText" class="form-label">Baptism Date</label>
-                            <label for="inputText" class="form-label">{{member.bDate}}</label>
-                            <input type="date" class="form-control border-success" name="bDate" value="{{member.bDate}}"
-                                id="bDate" style="width: 150px;" disabled>
+                        <div class="col-md-4 p-3">
+                            <label for="inputText" class="form-label">Relation</label>
+                            <input type="text" class="form-control border-success" placeholder="Relation"
+                                value="{{this.relation}}" name="relation" id="relation">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Birth Date</label>
-                            <input type="number" value="{{member.birthdate}}" class="form-control border-success"
-                                placeholder="Birth Date" name="birthdate" id="date">
-                        </div>
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Birth Month</label>
-                            <select id="inputState selectMonth" name="birthmonth" class="form-select border-success">
-                                <option selected>{{birthmonth}}</option>
-                                <option>January</option>
-                                <option>February</option>
-                                <option>March</option>
-                                <option>April</option>
-                                <option>May</option>
-                                <option>June</option>
-                                <option>July</option>
-                                <option>August</option>
-                                <option>September</option>
-                                <option>October</option>
-                                <option>November</option>
-                                <option>December</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Birth Year</label>
-                            <input type="number" value="{{member.birthyear}}" class="form-control border-success"
-                                placeholder="Birth Year" name="birthyear" id="year">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Baptism Date</label>
-                            <input type="number" value="{{member.baptismdate}}" class="form-control border-success"
-                                placeholder="Baptism Date" name="baptismdate" id="date">
-                        </div>
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Baptism Month</label>
-                            <select id="inputState selectMonth" name="baptismmonth" class="form-select border-success">
-                                <option selected>{{baptismmonth}}</option>
-                                <option>January</option>
-                                <option>February</option>
-                                <option>March</option>
-                                <option>April</option>
-                                <option>May</option>
-                                <option>June</option>
-                                <option>July</option>
-                                <option>August</option>
-                                <option>September</option>
-                                <option>October</option>
-                                <option>November</option>
-                                <option>December</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 p-3">
-                            <label for="inputText4" class="form-label">Baptism Year</label>
-                            <input type="number" value="{{member.baptismyear}}" class="form-control border-success"
-                                placeholder="Baptism Year" name="baptismyear" id="year">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 p-3">
-                            <label for="inputText" class="form-label">Abroad or Not</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input border-success" type="radio" name="abroad" id="abroad"
-                                    value="yes" {{#if member.abroad}}checked{{/if}}
-                                    onclick="togglePlaceNameField(true)">
-                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                        <div class="row">
+                            <div class="col-md-3 p-3">
+                                <label for="inputText" class="form-label">Date of Birth</label>
+                                <label for="inputText" class="form-label">{{this.dob}}</label>
+                                <input type="date" class="form-control border-success" name="dob" id="dob"
+                                    style="width: 150px;" disabled>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input border-success" type="radio" name="abroad" id="abroad"
-                                    value="no" {{#unless member.abroad}}checked{{/unless}}
-                                    onclick="togglePlaceNameField(false)">
-                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            <div class="col-md-3 p-3">
+                                <label for="inputText" class="form-label">Baptism Date</label>
+                                <label for="inputText" class="form-label">{{this.bDate}}</label>
+                                <input type="date" class="form-control border-success" name="bDate"
+                                    value="{{member.bDate}}" id="bDate" style="width: 150px;" disabled>
                             </div>
                         </div>
-                        <div class="col-md-4 p-3" id="placename" {{#unless member.abroad}}style="display:none"
-                            {{/unless}}>
-                            <label for="inputText" class="form-label">Place Name</label>
-                            <input type="text" class="form-control border-success" placeholder="Place Name"
-                                name="placeName" id="placeName" value="{{member.placeName}}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 p-3">
-                            <label for="inputText" class="form-label">Married or Not</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input border-success" type="radio" name="married" id="marryyes"
-                                    value="yes" {{#if member.married}}checked{{/if}}
-                                    onclick="toggleMarriageField(true)">
-                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                        <div class="row">
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Birth Date</label>
+                                <input type="number" value="{{this.birthdate}}" class="form-control border-success"
+                                    placeholder="Birth Date" name="birthdate" id="date">
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input border-success" type="radio" name="married" id="marryno"
-                                    value="no" {{#unless member.married}}checked{{/unless}}
-                                    onclick="toggleMarriageField(false)">
-                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Birth Month</label>
+                                <select id="inputState selectMonth" name="birthmonth"
+                                    class="form-select border-success">
+                                    <option selected>{{this.birthmonth}}</option>
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Birth Year</label>
+                                <input type="number" value="{{this.birthyear}}" class="form-control border-success"
+                                    placeholder="Birth Year" name="birthyear" id="year">
                             </div>
                         </div>
-                        <div class="col-md-9 p-3" id="marriage" {{#unless member.married}}style="display:none"
-                            {{/unless}}>
-                            <div style="display: flex;">
-                                <div class="col-md-2 p-3">
-                                    <label for="inputText4" class="form-label">Marriage Date</label>
-                                    <input type="number" class="form-control border-success" placeholder="Marriage Date"
-                                        name="marriagedate" id="marriageDate" value="{{member.marriagedate}}">
+                        <div class="row">
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Baptism Date</label>
+                                <input type="number" value="{{this.baptismdate}}" class="form-control border-success"
+                                    placeholder="Baptism Date" name="baptismdate" id="date">
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Baptism Month</label>
+                                <select id="inputState selectMonth" name="baptismmonth"
+                                    class="form-select border-success">
+                                    <option selected>{{this.baptismmonth}}</option>
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 p-3">
+                                <label for="inputText4" class="form-label">Baptism Year</label>
+                                <input type="number" value="{{this.baptismyear}}" class="form-control border-success"
+                                    placeholder="Baptism Year" name="baptismyear" id="year">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 p-3">
+                                <label for="inputText" class="form-label">Abroad or Not</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input border-success" type="radio" name="abroad"
+                                        id="abroad" value="yes" {{#if abroad}}checked{{/if}}
+                                        onclick="togglePlaceNameField(true)">
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
                                 </div>
-                                <div class="col-md-2 p-3">
-                                    <label for="inputText4" class="form-label">Marriage Month</label>
-                                    <select id="marriageMonth" name="marriagemonth"
-                                        class="form-select border-success">
-                                        <option selected>{{marriagemonth}}</option>
-                                        <option>January</option>
-                                        <option>February</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-                                        <option>July</option>
-                                        <option>August</option>
-                                        <option>September</option>
-                                        <option>October</option>
-                                        <option>November</option>
-                                        <option>December</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 p-3">
-                                    <label for="inputText4" class="form-label">Marriage Year</label>
-                                    <input type="number" class="form-control border-success" placeholder="Marriage Year"
-                                        name="marriageyear" id="marrriageYear" value="{{member.marriageyear}}">
-                                </div>
-                                <div class="col-md-4 p-3">
-                                    <label for="inputTest4" class="form-label">Partner Name</label>
-                                    <input type="text" class="form-control border-success" placeholder="Partner Name"
-                                        name="partnerName" id="partnername" value="{{member.partnerName}}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input border-success" type="radio" name="abroad"
+                                        id="abroad" value="no" {{#unless abroad}}checked{{/unless}}
+                                        onclick="togglePlaceNameField(false)">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
                                 </div>
                             </div>
+                            <div class="col-md-4 p-3" id="placename" {{#unless abroad}}style="display:none" {{/unless}}>
+                                <label for="inputText" class="form-label">Place Name</label>
+                                <input type="text" class="form-control border-success" placeholder="Place Name"
+                                    name="placeName" id="placeName" value="{{this.placeName}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 p-3">
+                                <label for="inputText" class="form-label">Married or Not</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input border-success" type="radio" name="married"
+                                        id="marryyes" value="yes" {{#if married}}checked{{/if}}
+                                        onclick="toggleMarriageField(true)">
+                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input border-success" type="radio" name="married"
+                                        id="marryno" value="no" {{#unless married}}checked{{/unless}}
+                                        onclick="toggleMarriageField(false)">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9 p-3" id="marriage" {{#unless married}}style="display:none" {{/unless}}>
+                                <div style="display: flex;">
+                                    <div class="col-md-2 p-3">
+                                        <label for="inputText4" class="form-label">Marriage Date</label>
+                                        <input type="number" class="form-control border-success"
+                                            placeholder="Marriage Date" name="marriagedate" id="marriageDate"
+                                            value="{{marriagedate}}">
+                                    </div>
+                                    <div class="col-md-2 p-3">
+                                        <label for="inputText4" class="form-label">Marriage Month</label>
+                                        <select id="marriageMonth" name="marriagemonth"
+                                            class="form-select border-success">
+                                            <option selected>{{this.marriagemonth}}</option>
+                                            <option>January</option>
+                                            <option>February</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>
+                                            <option>July</option>
+                                            <option>August</option>
+                                            <option>September</option>
+                                            <option>October</option>
+                                            <option>November</option>
+                                            <option>December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 p-3">
+                                        <label for="inputText4" class="form-label">Marriage Year</label>
+                                        <input type="number" class="form-control border-success"
+                                            placeholder="Marriage Year" name="marriageyear" id="marrriageYear"
+                                            value="{{this.marriageyear}}">
+                                    </div>
+                                    <div class="col-md-4 p-3">
+                                        <label for="inputTest4" class="form-label">Partner Name</label>
+                                        <input type="text" class="form-control border-success"
+                                            placeholder="Partner Name" name="partnerName" id="partnername"
+                                            value="{{this.partnerName}}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="submit" value="Save Changes" class="btn btn-primary save-member" id="save-member"
-                            style="width: 50%;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="submit" value="Save Changes" class="btn btn-primary save-member"
+                                id="save-member" style="width: 50%;">
+                        </div>
                     </div>
-                </div>
-                <hr class="border border-success border-2 opacity-50">
+                    <hr class="border border-success border-2 opacity-50">
+                {{/each}}
+            </form>
         </span>
     </section>
     <script>

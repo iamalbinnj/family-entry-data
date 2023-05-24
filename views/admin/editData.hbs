@@ -34,16 +34,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3 p-3">
-                                <label for="inputText" class="form-label">Date of Birth</label>
+                                <label for="inputText" class="form-label">Date of Birth: </label>
                                 <label for="inputText" class="form-label">{{this.dob}}</label>
-                                <input type="date" class="form-control border-success" name="dob" id="dob"
-                                    style="width: 150px;" disabled>
                             </div>
                             <div class="col-md-3 p-3">
-                                <label for="inputText" class="form-label">Baptism Date</label>
+                                <label for="inputText" class="form-label">Baptism Date: </label>
                                 <label for="inputText" class="form-label">{{this.bDate}}</label>
-                                <input type="date" class="form-control border-success" name="bDate"
-                                    value="{{member.bDate}}" id="bDate" style="width: 150px;" disabled>
                             </div>
                         </div>
                         <div class="row">
@@ -148,6 +144,10 @@
                             </div>
                             <div class="col-md-9 p-3" id="marriage" {{#unless married}}style="display:none" {{/unless}}>
                                 <div style="display: flex;">
+                                    <div class="col-md-3 p-3">
+                                        <label for="inputText" class="form-label">Marriage: </label>
+                                        <label for="inputText" class="form-label">{{this.dom}}</label>
+                                    </div>
                                     <div class="col-md-2 p-3">
                                         <label for="inputText4" class="form-label">Marriage Date</label>
                                         <input type="number" class="form-control border-success"

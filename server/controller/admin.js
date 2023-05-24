@@ -87,7 +87,10 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
             return res.status(404).json({ message: "Member not found" });
         }
         let member = editList.memberDetails
-        let newMemberDetails = member.map(({ name, relation, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
+        let newMemberDetails = member.map(({ name, relation, dob, bDate, dom, age, birthdate, birthmonth, birthyear, baptismdate, baptismmonth, baptismyear, abroad, placeName, married, marriagedate, marriagemonth, marriageyear, partnerName, anniversary, _id }) => {
+            const updateddob = dob ?? 0
+            const updatedbDate = bDate ?? 0
+            const updateddom = dom ?? 0
             const updatedage = age !== null && age >= 1 && age <= 110 ? age : 0;
             const updatedanniversary = anniversary !== null && anniversary >= 1 && anniversary <= 100 ? anniversary : 0;
             const updatedBirthdate = birthdate !== null && birthdate >= 1 && birthdate <= 31 ? birthdate : 0;
@@ -103,10 +106,10 @@ export const getEditMember = async (req, res) => { //router.get("/edit/:id/:memb
             const newBirthmonth = updatedBirthmonth !== 0 ? monthName(updatedBirthmonth) : 0;
             const newBaptismmonth = updatedBaptismmonth !== 0 ? monthName(updatedBaptismmonth) : 0;
             const newMarriagemonth = updatedMarriagemonth !== 0 ? monthName(updatedMarriagemonth) : 0;
-            return { name, relation, age: updatedage, birthdate: updatedBirthdate, birthmonth: newBirthmonth, birthyear: updatedBirthyear, baptismdate: updatedBaptismdate, baptismmonth: newBaptismmonth, baptismyear: updatedBaptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: updatedMarriagedate, marriagemonth: newMarriagemonth, marriageyear: updatedMarriageyear, partnerName: partnerName, anniversary: updatedanniversary, _id: _id };
+            return { name, relation, dob: updateddob, bDate: updatedbDate, dom: updateddom, age: updatedage, birthdate: updatedBirthdate, birthmonth: newBirthmonth, birthyear: updatedBirthyear, baptismdate: updatedBaptismdate, baptismmonth: newBaptismmonth, baptismyear: updatedBaptismyear, abroad: abroad, placeName: placeName, married: married, marriagedate: updatedMarriagedate, marriagemonth: newMarriagemonth, marriageyear: updatedMarriageyear, partnerName: partnerName, anniversary: updatedanniversary, _id: _id };
         })
 
-        console.log(newMemberDetails);
+        // console.log(newMemberDetails);
         // console.log(editList);
         // res.status(200).json(member);
         res.render('admin/editData', { id: req.params.id, memberid: req.params.memberid, member: newMemberDetails })

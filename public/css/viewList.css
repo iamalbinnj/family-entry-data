@@ -1,0 +1,11 @@
+table {
+    counter-reset: row-counter -1;
+}
+
+table tr {
+    counter-increment: row-counter;
+}
+
+table tr td:first-child::before {
+    content: counter(row-counter);
+}

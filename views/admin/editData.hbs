@@ -200,28 +200,10 @@
             </form>
         </span>
     </section>
-    <script>
-        function togglePlaceNameField(show) {
-            const placeNameField = document.getElementById('placename');
-            placeNameField.style.display = show ? 'block' : 'none';
-            if (!show) {
-                document.getElementById('placeName').value = "";
-            }
-        }
-        function toggleMarriageField(show) {
-            const marriageField = document.querySelector('#marriage');
-            marriageField.style.display = show ? 'block' : 'none';
-            if (!show) {
-                document.querySelector('#marriageDate').value = "";
-                document.querySelector('#marriageMonth').selectedIndex = -1;
-                document.querySelector('#marrriageYear').value = "";
-                document.querySelector('#partnername').value = "";
-            }
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
+    <script src="/js/editData.js"></script>
 </body>
 
 </html>

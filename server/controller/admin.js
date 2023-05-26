@@ -40,9 +40,109 @@ export const createData = async (req, res) => { //router.post("/", createData)
 
 export const getAllData = async (req, res) => { //router.get("/list", getAllData)
     try {
-        const userList = await User.find()
-        // res.status(200).json(userList)
-        res.render('admin/viewList', { users: userList })
+        if (Object.keys(req.query).length !== 0) {
+            if (req.query.BM) {
+                let BMonth = req.query.BM
+                BMonth = monthNumber(BMonth)
+                const userList = await User.aggregate([
+                    {
+                        $match: {
+                            "memberDetails.birthmonth": BMonth
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            unit: 1,
+                            houseN:1,
+                            "memberDetails._id": 1,
+                            "memberDetails.name": 1,
+                            "memberDetails.birthdate": 1,
+                            "memberDetails.birthmonth": 1,
+                            "memberDetails.birthyear": 1
+                        }
+                    },
+                    {
+                        $unwind: "$memberDetails"
+                    },
+                    {
+                        $match: {
+                            "memberDetails.birthmonth": BMonth
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            unit: 1,
+                            houseN:1,
+                            "memberDetails._id": 1,
+                            "memberDetails.name": 1,
+                            "memberDetails.birthdate": 1,
+                            "memberDetails.birthmonth": 1,
+                            "memberDetails.birthyear": 1
+                        }
+                    }
+                ]);
+                // console.log(userList);
+                // res.status(200).json(userList);
+                res.render('admin/viewList', { filterbirthday: userList })
+            } else if (req.query.AM) {
+                let AMonth = req.query.AM
+                AMonth = monthNumber(AMonth)
+                const userList = await User.aggregate([
+                    {
+                        $match: {
+                            "memberDetails.marriagemonth": AMonth
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            unit: 1,
+                            houseN:1,
+                            "memberDetails._id": 1,
+                            "memberDetails.name": 1,
+                            "memberDetails.marriagedate": 1,
+                            "memberDetails.marriagemonth": 1,
+                            "memberDetails.marriageyear": 1,
+                            "memberDetails.partnerName": 1,
+                            "memberDetails.anniversary": 1,
+                        }
+                    },
+                    {
+                        $unwind: "$memberDetails"
+                    },
+                    {
+                        $match: {
+                            "memberDetails.marriagemonth": AMonth
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            unit: 1,
+                            houseN:1,
+                            "memberDetails._id": 1,
+                            "memberDetails.name": 1,
+                            "memberDetails.marriagedate": 1,
+                            "memberDetails.marriagemonth": 1,
+                            "memberDetails.marriageyear": 1,
+                            "memberDetails.partnerName": 1,
+                            "memberDetails.anniversary": 1,
+                        }
+                    }
+                ]);
+                // console.log(userList);
+                // res.status(200).json(userList);
+                res.render('admin/viewList', { filtermarriage: userList })
+            } else {
+                res.send("Wrong")
+            }
+        } else {
+            const userList = await User.find()
+            // res.status(200).json(userList)
+            res.render('admin/viewList', { users: userList })
+        }
     } catch (err) {
         res.status(500).send({
             message: err.message || "Some error occurred"

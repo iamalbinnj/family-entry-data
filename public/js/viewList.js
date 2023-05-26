@@ -18,3 +18,14 @@ document.querySelectorAll('.delete-data').forEach(button => {
         }
     });
 });
+
+function handleSelectChange(selectedId) {
+    const BM = document.getElementById('BM');
+    const AM = document.getElementById('AM');
+
+    if (selectedId === 'BM') {
+      AM.disabled = BM.value !== '';
+    } else if (selectedId === 'AM') {
+      BM.disabled = AM.value !== '';
+    }
+  }

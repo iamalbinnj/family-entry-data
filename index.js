@@ -4,6 +4,7 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import hbs from 'hbs'
 
 import connectDB from './server/database/connection.js'
 
@@ -24,13 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-// app.engine('hbs', hbs.engine({
-//     extname: 'hbs',
-//     defaultLayout: 'layout',
-//     layoutsDir: __dirname + '/views/layout/'
-// }))
-app.use("/js",express.static(path.join(__dirname, 'assets/js')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+hbs.cachePartials = true;
 
 //middlewares
 app.use("/", adminRoute)

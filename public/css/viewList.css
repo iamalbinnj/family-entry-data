@@ -1,0 +1,39 @@
+table {
+    counter-reset: row-counter -1;
+}
+
+table tr {
+    counter-increment: row-counter;
+}
+
+table tr td:first-child::before {
+    content: counter(row-counter);
+}
+
+.container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+}
+
+.search-icon {
+    margin-right: 20px;
+}
+
+.print-bth {
+    margin-right: 20px;
+}
+
+
+.filter-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}

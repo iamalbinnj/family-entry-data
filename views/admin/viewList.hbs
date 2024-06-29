@@ -1,186 +1,386 @@
-<!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Family Data</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/viewList.css">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/viewList.css" />
+  </head>
 
-<body>
+  <body>
 
     <section>
-        <header class="row m-3">
-            <h1>User List</h1>
-            <p><a href="/">Go to Home Page</a></p>
-            <div class="container">
-                <div class="flex-container">
-                    <div class="search-icon">
-                        <img src="https://img.icons8.com/ios/50/horizontal-settings-mixer--v1.png"
-                            alt="horizontal-settings-mixer--v1" class="filter-icon" data-bs-toggle="modal"
-                            data-bs-target="#myModal" />
+      <header class="row m-3">
+        <h1>User List</h1>
+        <p><a href="/">Go to Home Page</a></p>
+        <div class="container">
+          <div class="flex-container">
+            <div class="search-icon">
+              <img
+                src="https://img.icons8.com/ios/50/horizontal-settings-mixer--v1.png"
+                alt="horizontal-settings-mixer--v1"
+                class="filter-icon"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              />
+            </div>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="myModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+
+                  <div class="container text-center mt-3">
+                    <div class="col">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="BS"
+                          value="BS"
+                        />
+                        <label class="form-check-label" for="BS">Birth Section</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="MS"
+                          value="MS"
+                        />
+                        <label class="form-check-label" for="MS">Marriage
+                          Section</label>
+                      </div>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <form action="" method="get">
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-9 p-3">
-                                                <label for="inputText4" class="form-label">Birth Month: </label>
-                                                <select id="BM"
-                                                    name="BM"
-                                                    class="form-select border-success" onchange="handleSelectChange('BM')">
-                                                    <option>January</option>
-                                                    <option>February</option>
-                                                    <option>March</option>
-                                                    <option>April</option>
-                                                    <option>May</option>
-                                                    <option>June</option>
-                                                    <option>July</option>
-                                                    <option>August</option>
-                                                    <option>September</option>
-                                                    <option>October</option>
-                                                    <option>November</option>
-                                                    <option>December</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-9 p-3">
-                                                <label for="inputText4" class="form-label">Marriage Month: </label>
-                                                <select id="AM"
-                                                    name="AM"
-                                                    class="form-select border-success" onchange="handleSelectChange('AM')">
-                                                    <option>January</option>
-                                                    <option>February</option>
-                                                    <option>March</option>
-                                                    <option>April</option>
-                                                    <option>May</option>
-                                                    <option>June</option>
-                                                    <option>July</option>
-                                                    <option>August</option>
-                                                    <option>September</option>
-                                                    <option>October</option>
-                                                    <option>November</option>
-                                                    <option>December</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
+                  </div>
+
+                  <form action="" method="get">
+                    <div class="modal-body">
+                      <div class="row hidden" id="BSection">
+                        <div class="col-md-9 p-3">
+                          <label for="inputText4" class="form-label">Birth
+                            Month:
+                          </label>
+                          <select
+                            id="BM"
+                            name="BM"
+                            class="form-select border-success"
+                          >
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                          </select>
                         </div>
+
+                        <div class="col-md-9 p-3">
+                          <label
+                            for="inputText4"
+                            class="form-label"
+                          >Sort</label>
+                          <div class="col">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="checksort"
+                                id="sortBDate"
+                                value="date"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="sortBDate"
+                              >Date</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="checksort"
+                                id="sortBYear"
+                                value="year"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="sortBYear"
+                              >Year</label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-9 p-3" id="sortSection">
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="method"
+                              value="ascending"
+                              id="Bascending"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="ascending"
+                            >Ascending</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="method"
+                              value="descending"
+                              id="Bdescending"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="descending"
+                            >Descending</label>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row hidden" id="MSection">
+                        <div class="col-md-9 p-3">
+                          <label for="inputText4" class="form-label">Marriage
+                            Month:
+                          </label>
+                          <select
+                            id="AM"
+                            name="AM"
+                            class="form-select border-success"
+                          >
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-9 p-3">
+                          <label
+                            for="inputText4"
+                            class="form-label"
+                          >Sort</label>
+                          <div class="col">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="checksort"
+                                id="sortMDate"
+                                value="date"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="sortMDate"
+                              >Date</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="checksort"
+                                id="sortMYear"
+                                value="year"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="sortMYear"
+                              >Year</label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-9 p-3" id="sortSection">
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="method"
+                              value="ascending"
+                              id="Mascending"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="ascending"
+                            >Ascending</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="method"
+                              value="descending"
+                              id="Mdescending"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="descending"
+                            >Descending</label>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-                    <div class="print-bth">
-                        <button type="button" class="btn btn-success">Print</button>
+                    <div class="modal-footer">
+                      <button
+                        type="reset"
+                        class="btn btn-primary"
+                      >Reset</button>
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                      >Filter</button>
                     </div>
+                  </form>
                 </div>
+              </div>
             </div>
-        </header>
-        <div class="row m-3">
-            <div class="container table-responsive py-5">
-                {{#if users.length}}
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Unit Name</th>
-                                <th scope="col">House Name</th>
-                                <th scope="col">Phone No</th>
-                                <th scope="col">Member Name</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each users}}
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td>{{this.unit}}</td>
-                                    <td>{{this.houseN}}</td>
-                                    <td>{{this.phoneN}}</td>
-                                    <td>{{memberDetails.[0].name}}</td>
-                                    <td><a href="/view/{{this._id}}" class="btn btn-primary">Edit</a></td>
-                                    <td><button type="button" data-id="{{this._id}}" class="btn btn-danger delete-data"
-                                            id="deleteData">Delete</button></td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                {{else if filterbirthday}}
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Unit Name</th>
-                                <th scope="col">House Name</th>
-                                <th scope="col">Member Name</th>
-                                <th scope="col">Date of Birth</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each filterbirthday}}
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td>{{this.unit}}</td>
-                                    <td>{{this.houseN}}</td>
-                                    <td>{{memberDetails.name}}</td>
-                                    <td>{{memberDetails.birthdate}}/{{memberDetails.birthmonth}}/{{memberDetails.birthyear}}
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                {{else if filtermarriage}}
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Unit Name</th>
-                                <th scope="col">House Name</th>
-                                <th scope="col">Member Name</th>
-                                <th scope="col">Partner Name</th>
-                                <th scope="col">Date of Anniversary</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each filtermarriage}}
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td>{{this.unit}}</td>
-                                    <td>{{this.houseN}}</td>
-                                    <td>{{memberDetails.name}}</td>
-                                    <td>{{memberDetails.partnerName}}</td>
-                                    <td>{{memberDetails.marriagedate}}/{{memberDetails.marriagemonth}}/{{memberDetails.marriageyear}}
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                {{else}}
-                    <p>No data available.</p>
-                {{/if}}
+            <div class="print-bth">
+              <button type="button" class="btn btn-success">Print</button>
             </div>
+          </div>
         </div>
+      </header>
+      <div class="row m-3">
+        <div class="container table-responsive py-5">
+          {{#if users.length}}
+            <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Unit Name</th>
+                  <th scope="col">House Name</th>
+                  <th scope="col">Phone No</th>
+                  <th scope="col">Member Name</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each users}}
+                  <tr>
+                    <td scope="row"></td>
+                    <td>{{this.unit}}</td>
+                    <td>{{this.houseN}}</td>
+                    <td>{{this.phoneN}}</td>
+                    <td>{{memberDetails.0.name}}</td>
+                    <td><a
+                        href="/view/{{this._id}}"
+                        class="btn btn-primary"
+                      >Edit</a></td>
+                    <td><button
+                        type="button"
+                        data-id="{{this._id}}"
+                        class="btn btn-danger delete-data"
+                        id="deleteData"
+                      >Delete</button></td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          {{else if filterbirthday}}
+            <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Unit Name</th>
+                  <th scope="col">House Name</th>
+                  <th scope="col">Member Name</th>
+                  <th scope="col">Date of Birth</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each filterbirthday}}
+                  <tr>
+                    <td scope="row"></td>
+                    <td>{{this.unit}}</td>
+                    <td>{{this.houseN}}</td>
+                    <td>{{memberDetails.name}}</td>
+                    <td
+                    >{{memberDetails.birthdate}}/{{memberDetails.birthmonth}}/{{memberDetails.birthyear}}
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          {{else if filtermarriage}}
+            <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Unit Name</th>
+                  <th scope="col">House Name</th>
+                  <th scope="col">Member Name</th>
+                  <th scope="col">Partner Name</th>
+                  <th scope="col">Date of Anniversary</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each filtermarriage}}
+                  <tr>
+                    <td scope="row"></td>
+                    <td>{{this.unit}}</td>
+                    <td>{{this.houseN}}</td>
+                    <td>{{memberDetails.name}}</td>
+                    <td>{{memberDetails.partnerName}}</td>
+                    <td
+                    >{{memberDetails.marriagedate}}/{{memberDetails.marriagemonth}}/{{memberDetails.marriageyear}}
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          {{else}}
+            <p>No data available.</p>
+          {{/if}}
+        </div>
+      </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/viewList.js"></script>
-</body>
+  </body>
 
 </html>

@@ -72,7 +72,6 @@ export const createData = async (req, res) => {
 export const getAllData = async (req, res) => {
   //router.get("/list", getAllData)
   try {
-    console.log(req.query);
     const { BM, AM, checksort, method } = req.query;
     if (Object.keys(req.query).length !== 0) {
       if (BM) {
@@ -154,26 +153,26 @@ export const getAllData = async (req, res) => {
         if (checksort == "date" && method == "ascending") {
           userList = await User.aggregate([
             { $unwind: "$memberDetails" },
-            { $match: { "memberDetails.birthmonth": AMonth } },
-            { $sort: { "memberDetails.birthdate": 1 } },
+            { $match: { "memberDetails.marriagemonth": AMonth } },
+            { $sort: { "memberDetails.marriagedate": 1 } },
           ]);
         } else if (checksort == "date" && method == "descending") {
           userList = await User.aggregate([
             { $unwind: "$memberDetails" },
-            { $match: { "memberDetails.birthmonth": AMonth } },
-            { $sort: { "memberDetails.birthdate": -1 } },
+            { $match: { "memberDetails.marriagemonth": AMonth } },
+            { $sort: { "memberDetails.marriagedate": -1 } },
           ]);
         } else if (checksort == "year" && method == "ascending") {
           userList = await User.aggregate([
             { $unwind: "$memberDetails" },
-            { $match: { "memberDetails.birthmonth": AMonth } },
-            { $sort: { "memberDetails.birthyear": 1 } },
+            { $match: { "memberDetails.marriagemonth": AMonth } },
+            { $sort: { "memberDetails.marriageyear": 1 } },
           ]);
         } else if (checksort == "year" && method == "descending") {
           userList = await User.aggregate([
             { $unwind: "$memberDetails" },
-            { $match: { "memberDetails.birthmonth": AMonth } },
-            { $sort: { "memberDetails.birthyear": -1 } },
+            { $match: { "memberDetails.marriagemonth": AMonth } },
+            { $sort: { "memberDetails.marriageyear": -1 } },
           ]);
         } else {
           userList = await User.aggregate([
